@@ -1,6 +1,7 @@
 from email.mime import image
 from enum import Enum
 from PIL import Image 
+from os.path import exists
 
 class TileType(Enum):
     T = "T"
@@ -21,8 +22,28 @@ def tileToImage(tileType: list):
     fileName = ""
     for type in tileType:
         fileName += type.value
-    img = Image.open("./TileImages/" + fileName + ".png")
-    return img
+    fileName1 = fileName[1:]+fileName[:1]
+    fileName2 = fileName[2:]+fileName[:2]
+    fileName3 = fileName[3:]+fileName[:3]
+    #print(fileName, fileName1, fileName2, fileName3)
+    if(exists("./TileImages/"+fileName+".png")):
+        img = Image.open("./TileImages/" + fileName + ".png")
+        return img
+    elif(exists("./TileImages/"+fileName1+".png")):
+        img = Image.open("./TileImages/" + fileName1 + ".png")
+        img = img.rotate(270)
+        return img
+    elif(exists("./TileImages/"+fileName2+".png")):
+        img = Image.open("./TileImages/" + fileName2 + ".png")
+        img = img.rotate(180)
+        return img
+    elif(exists("./TileImages/"+fileName3+".png")):
+        img = Image.open("./TileImages/" + fileName3 + ".png")
+        img = img.rotate(90)
+        return img
+    else:
+        return Image.open("./TileImages/FFFF.png")
+    
 
 
 # Got it from StackOverflow (proper ref TODO)
