@@ -1,0 +1,28 @@
+# ---> vs code
+**.vscode/
+**.vs/
+
+output_1.png
+
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+
+
+# Executables
+*.exe
+*.out
+*.app
+

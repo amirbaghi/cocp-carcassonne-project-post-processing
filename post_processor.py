@@ -41,3 +41,4 @@ if __name__ == "__main__":
     images = list(map(tileToImage, mapTiles))
     grid = image_grid(images, 2, 3)
     grid.show()
+    grid = grid.save("output_1.png", "PNG")
