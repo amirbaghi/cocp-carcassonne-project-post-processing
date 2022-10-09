@@ -5,7 +5,7 @@ import os
 from os.path import exists
 from minizinc import Instance, Model, Solver
 
-model_path = os.path.abspath("./Carcassone.mzn")
+model_path = os.path.abspath("./carcasonne.mzn")
 
 # Load carcasonne model from file
 carcasonne = Model(model_path)
@@ -14,7 +14,7 @@ gecode = Solver.lookup("gecode")
 # Create an Instance of the carcasonne model for Gecode
 instance = Instance(gecode, carcasonne)
 # Assign dzn
-instance.add_file("./base.dzn", False)
+instance.add_file("./base1.dzn", False)
 result = instance.solve()
 # Output the array to maptiles, the format is not necessarily correct for now, need to convert to Enum TileType
 mapTiles = (result["TileRotation"])
