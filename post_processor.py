@@ -1,17 +1,20 @@
 from email.mime import image
 from enum import Enum
 from PIL import Image 
+import os
 from os.path import exists
 from minizinc import Instance, Model, Solver
 
+model_path = os.path.abspath("./Carcassone.mzn")
+
 # Load carcasonne model from file
-carcasonne = Model("./carcasonne.mzn")
+carcasonne = Model(model_path)
 # Find the MiniZinc solver configuration for Gecode
 gecode = Solver.lookup("gecode")
 # Create an Instance of the carcasonne model for Gecode
 instance = Instance(gecode, carcasonne)
 # Assign dzn
-instance.add_file("./base1.dzn", False)
+instance.add_file("./base.dzn", False)
 result = instance.solve()
 # Output the array to maptiles, the format is not necessarily correct for now, need to convert to Enum TileType
 mapTiles = (result["TileRotation"])
@@ -29,14 +32,16 @@ class TileType(Enum):
         return self.value + x.value
 
 # placeholder for now, this is the right format
-mapTiles[[TileType.F, TileType.F, TileType.F, TileType.R], [TileType.F, TileType.F, TileType.F, TileType.T], [TileType.F, TileType.F, TileType.F, TileType.F],
-          [TileType.F, TileType.R, TileType.F, TileType.F], [TileType.F, TileType.T, TileType.T, TileType.F], [TileType.T, TileType.F,TileType.F, TileType.F]]
+#mapTiles[[TileType.F, TileType.F, TileType.F, TileType.R], [TileType.F, TileType.F, TileType.F, TileType.T], [TileType.F, TileType.F, TileType.F, TileType.F],
+ #         [TileType.F, TileType.R, TileType.F, TileType.F], [TileType.F, TileType.T, TileType.T, TileType.F], [TileType.T, TileType.F,TileType.F, TileType.F]]
+
+
 
 # find corresponding png and compute rotation at runtime
 def tileToImage(tileType: list):
     fileName = ""
     for type in tileType:
-        fileName += type.value
+        fileName += type
     fileName1 = fileName[1:]+fileName[:1]
     fileName2 = fileName[2:]+fileName[:2]
     fileName3 = fileName[3:]+fileName[:3]
@@ -75,6 +80,6 @@ def image_grid(imgs, rows, cols):
 
 if __name__ == "__main__":
     images = list(map(tileToImage, mapTiles))
-    grid = image_grid(images, 2, 3)
+    grid = image_grid(images, 7, 12)
     grid.show()
     grid = grid.save("output_1.png", "PNG")
