@@ -3,7 +3,8 @@
 **.vs/
 
 output_1.png
-
+*.dzn
+*.mzn
 
 # Shared objects (inc. Windows DLLs)
 *.dll

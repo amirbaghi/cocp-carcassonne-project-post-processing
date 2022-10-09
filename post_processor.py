@@ -2,6 +2,20 @@ from email.mime import image
 from enum import Enum
 from PIL import Image 
 from os.path import exists
+from minizinc import Instance, Model, Solver
+
+# Load carcasonne model from file
+carcasonne = Model("./carcasonne.mzn")
+# Find the MiniZinc solver configuration for Gecode
+gecode = Solver.lookup("gecode")
+# Create an Instance of the carcasonne model for Gecode
+instance = Instance(gecode, carcasonne)
+# Assign dzn
+instance.add_file("./base1.dzn", False)
+result = instance.solve()
+# Output the array to maptiles, the format is not necessarily correct for now, need to convert to Enum TileType
+mapTiles = (result["TileRotation"])
+
 
 class TileType(Enum):
     T = "T"
@@ -11,13 +25,14 @@ class TileType(Enum):
 
     def __str__(self):
         return self.value
-
     def __add__(self, x):
         return self.value + x.value
 
-mapTiles = [[TileType.F, TileType.F, TileType.F, TileType.R], [TileType.F, TileType.F, TileType.F, TileType.T], [TileType.F, TileType.F, TileType.F, TileType.F],
+# placeholder for now, this is the right format
+mapTiles[[TileType.F, TileType.F, TileType.F, TileType.R], [TileType.F, TileType.F, TileType.F, TileType.T], [TileType.F, TileType.F, TileType.F, TileType.F],
           [TileType.F, TileType.R, TileType.F, TileType.F], [TileType.F, TileType.T, TileType.T, TileType.F], [TileType.T, TileType.F,TileType.F, TileType.F]]
 
+# find corresponding png and compute rotation at runtime
 def tileToImage(tileType: list):
     fileName = ""
     for type in tileType:
