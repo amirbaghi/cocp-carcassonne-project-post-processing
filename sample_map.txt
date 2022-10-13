@@ -1,2 +1,0 @@
-result = [[F, F, F, R], [F, F, F, T], [F, F, F, F],
-          [F, R, F, F], [F, T, T, F], [T, F, F, F]]
