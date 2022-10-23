@@ -1,0 +1,32 @@
+tileCount = 105;
+length1 = 21;
+width = 5;
+tileCountWRotation = 26;
+numOfTypes = 4;
+TilesCardinality = [3, 5, 11, 9, 14, 7, 3, 4, 7, 1, 4, 4, 4, 1, 1, 1, 0, 2, 6, 4, 4, 1, 1, 5, 2, 1];
+TypeOfTiles	= [|F, P, T, P
+|P, F, F, F
+|P, F, F, P
+|F, F, T, F
+|F, T, T, F
+|F, T, T, T
+|P, F, T, P
+|P, P, T, F
+|P, P, F, P
+|P, P, T, P
+|P, T, T, T
+|P, P, T, T
+|F, F, F, R
+|R, R, P, P
+|R, R, T, T
+|R, P, R, T
+|R, F, R, P
+|F, F, R, R
+|F, T, F, T
+|P, F, P, F
+|R, F, R, F
+|R, P, R, P
+|R, T, R, T
+|F, F, F, F
+|T, T, T, T
+|P, P, P, P|];
