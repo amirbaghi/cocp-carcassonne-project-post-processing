@@ -13,11 +13,11 @@ cols = 12
 numberOfSolutions = 5
 shouldGenerateImages = True
 shouldShowImages = False
-datafile = f"./Instances/main_{rows}_{cols}.dzn"
+datafile = f"./dzn/084-12-7.dzn"
 
 # Load carcasonne model from file
 carcasonne = Model("./carcassonne.mzn")
-# Find the MiniZinc solver configuration for Gecode
+# Find the MiniZinc solver configuration for PicatSAT
 gecode = Solver.lookup("picat")
 # Create an Instance of the carcasonne model for Gecode
 instance = Instance(gecode, carcasonne)
@@ -61,7 +61,8 @@ def tileToImage(tileType: list):
         return img
     else:
         return Image.open("./TileImages/FFFF.png")
-    
+
+# We got this function from Ivan's answer at StackOverflow (https://stackoverflow.com/a/65583584)    
 def image_grid(imgs, rows, cols):
     assert len(imgs) == rows*cols
     w, h = imgs[0].size
@@ -70,6 +71,7 @@ def image_grid(imgs, rows, cols):
         grid.paste(img, box=(i%cols*w, i//cols*h))
     return grid
 
+#Save all generated images to output_{counter}.png. Optional: show all generated images. 
 def generate_images(shouldShow):
     counter = 0
     for r in range(len(results)):

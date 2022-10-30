@@ -14,9 +14,9 @@ gecode = Solver.lookup("gecode")
 # Create an Instance of the carcasonne model for Gecode
 instance = Instance(gecode, carcasonne)
 # Assign dzn
-instance.add_file("./base1.dzn", False)
+instance.add_file("./dzn/084-12-7.dzn", False)
 result = instance.solve()
-# Output the array to maptiles, the format is not necessarily correct for now, need to convert to Enum TileType
+# Output the array to maptiles. TileRotation is our decision variable name. Change it if needed.
 mapTiles = (result["TileRotation"])
 
 
@@ -30,10 +30,6 @@ class TileType(Enum):
         return self.value
     def __add__(self, x):
         return self.value + x.value
-
-# placeholder for now, this is the right format
-#mapTiles[[TileType.F, TileType.F, TileType.F, TileType.R], [TileType.F, TileType.F, TileType.F, TileType.T], [TileType.F, TileType.F, TileType.F, TileType.F],
- #         [TileType.F, TileType.R, TileType.F, TileType.F], [TileType.F, TileType.T, TileType.T, TileType.F], [TileType.T, TileType.F,TileType.F, TileType.F]]
 
 
 
@@ -66,7 +62,7 @@ def tileToImage(tileType: list):
     
 
 
-# Got it from StackOverflow (proper ref TODO)
+# We got this function from Ivan's answer at StackOverflow (https://stackoverflow.com/a/65583584)
 def image_grid(imgs, rows, cols):
     assert len(imgs) == rows*cols
 
